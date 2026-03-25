@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Um Polígono é... */
+/* Um Polígono é uma forma geométrica construída dinamicamente através de uma fila de coordenadas (seus vértices). Neste sistema, 
+ele funciona como um gerador: armazena sequencialmente os pontos de ancoragem de outras figuras e, ao ser processado,
+produz um conjunto de novas linhas que formam a sua borda fechada e o seu preenchimento (hachuras). */
 
 typedef void* Ponto;
 typedef void* POLIGONO;
