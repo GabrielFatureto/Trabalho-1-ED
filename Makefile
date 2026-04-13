@@ -63,8 +63,8 @@ test_fila: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/fila.o
 	$(CC) $(CFLAGS) $(TEST_DIR)/testefila.c $(OBJ_DIR)/fila.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_fila $(LDFLAGS)
 	./$(OBJ_DIR)/test_fila
 
-test_poligono: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/poligono.o
-	$(CC) $(CFLAGS) $(TEST_DIR)/testepoligono.c $(OBJ_DIR)/poligono.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_poligono $(LDFLAGS)
+test_poligono: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o
+	$(CC) $(CFLAGS) $(TEST_DIR)/testepoligono.c $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_poligono $(LDFLAGS)
 	./$(OBJ_DIR)/test_poligono
 
 # Target para rodar todos
