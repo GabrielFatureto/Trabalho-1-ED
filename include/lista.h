@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "fila.h" // Inclui para reconhecer a StrPonto, se necessário
+#include "fila.h" 
 
 /* Uma Lista é uma estrutura de dados linear e dinâmica. 
 Neste sistema, ela funciona para armazenar o conjunto de figuras geométricas 
