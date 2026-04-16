@@ -63,12 +63,18 @@ test_fila: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/fila.o
 	$(CC) $(CFLAGS) $(TEST_DIR)/testefila.c $(OBJ_DIR)/fila.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_fila $(LDFLAGS)
 	./$(OBJ_DIR)/test_fila
 
-test_poligono: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o
-	$(CC) $(CFLAGS) $(TEST_DIR)/testepoligono.c $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_poligono $(LDFLAGS)
+test_poligono: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o $(OBJ_DIR)/lista.o $(OBJ_DIR)/linha.o
+	$(CC) $(CFLAGS) $(TEST_DIR)/testepoligono.c $(OBJ_DIR)/poligono.o $(OBJ_DIR)/fila.o $(OBJ_DIR)/lista.o $(OBJ_DIR)/linha.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_poligono $(LDFLAGS)
 	./$(OBJ_DIR)/test_poligono
+test_texto: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/texto.o
+	$(CC) $(CFLAGS) $(TEST_DIR)/testetexto.c $(OBJ_DIR)/texto.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_texto $(LDFLAGS)
+	./$(OBJ_DIR)/test_texto
+test_linha: cria_pastas $(UNITY_OBJ) $(OBJ_DIR)/linha.o
+	$(CC) $(CFLAGS) $(TEST_DIR)/testelinha.c $(OBJ_DIR)/linha.o $(UNITY_OBJ) -o $(OBJ_DIR)/test_linha $(LDFLAGS)
+	./$(OBJ_DIR)/test_linha
 
 # Target para rodar todos
-testes: test_circulo test_retangulo test_lista test_fila test_poligono
+testes: test_circulo test_retangulo test_lista test_fila test_poligono test_texto test_linha
 
 # =========================================================
 # UTILITÁRIOS
