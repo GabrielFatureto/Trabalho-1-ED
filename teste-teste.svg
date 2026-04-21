@@ -1,0 +1,7 @@
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<circle cx="50.000000" cy="50.000000" r="20.000000" stroke="blue" fill="lightblue" stroke-width="2" />
+	<rect x="100.000000" y="30.000000" width="40.000000" height="40.000000" stroke="red" fill="pink" stroke-width="2" />
+	<line x1="10.000000" y1="10.000000" x2="200.000000" y2="200.000000" stroke="black" stroke-width="2" />
+	<text x="150.000000" y="80.000000" stroke="green" fill="none" text-anchor="middle">Testando_SVG</text>
+</svg>

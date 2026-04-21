@@ -12,18 +12,6 @@ modificação de seus dados, como posição e cores (borda e preenchimento). */
 typedef void* CIRCULO;
 
 
-/*-------------------------------------------- ESTRUTURAS --------------------------------------------*/
-
-/// @brief Estrutura que guarda as informações do círculo
-typedef struct {
-    int id;
-    double x; // Coordenada X do centro (âncora)
-    double y; // Coordenada Y do centro (âncora)
-    double r; // Raio do círculo
-    char* corb; // Cor da borda
-    char* corp; // Cor do preenchimento
-} StrCirculo;
-
 
 /*-------------------------------------------- FUNÇÕES --------------------------------------------*/
 

@@ -1,5 +1,18 @@
 #include "lista.h"
 
+/// @brief Nó interno da lista
+typedef struct NoLista {
+    StrFigura* figura; 
+    struct NoLista* prox;
+} NoLista;
+
+/// @brief Estrutura de controle da lista
+typedef struct {
+    NoLista* inicio;
+    NoLista* fim; // Adicionado 'fim' para otimizar inserções no final (opcional, mas recomendado)
+    int tamanho;
+} StrLista;
+
 LISTA cria_lista() {
     StrLista* l = (StrLista*) malloc(sizeof(StrLista));
     if (l != NULL) {
@@ -93,4 +106,19 @@ void limparLista(LISTA l) {
         }
         free(l_int);
     }
+}
+
+void destruirLista(LISTA l) {
+    if (l == NULL) return;
+    
+    StrLista* lista = (StrLista*) l;
+    NoLista* atual = lista->inicio;
+    
+    while (atual != NULL) {
+        NoLista* proximo = atual->prox;
+        free(atual); // Libera o nó
+        atual = proximo;
+    }
+    
+    free(lista); // Libera a estrutura de controle da lista
 }

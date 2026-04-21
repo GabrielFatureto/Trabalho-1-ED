@@ -1,5 +1,15 @@
 #include "circulo.h"
 
+/// @brief Estrutura que guarda as informações do círculo
+typedef struct {
+    int id;
+    double x; // Coordenada X do centro (âncora)
+    double y; // Coordenada Y do centro (âncora)
+    double r; // Raio do círculo
+    char* corb; // Cor da borda
+    char* corp; // Cor do preenchimento
+} StrCirculo;
+
 CIRCULO cria_circulo(int id, double x, double y, double r, char* corb, char* corp) {
     StrCirculo* c = (StrCirculo*) malloc(sizeof(StrCirculo));
     if (c == NULL) return NULL;

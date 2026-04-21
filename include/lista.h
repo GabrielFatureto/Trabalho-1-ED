@@ -25,19 +25,6 @@ typedef struct {
     ITEM forma; // Ponteiro genérico para a estrutura real (CIRCULO, RETANGULO, etc.)
 } StrFigura;
 
-/// @brief Nó interno da lista
-typedef struct NoLista {
-    StrFigura* figura; 
-    struct NoLista* prox;
-} NoLista;
-
-/// @brief Estrutura de controle da lista
-typedef struct {
-    NoLista* inicio;
-    NoLista* fim; // Adicionado 'fim' para otimizar inserções no final (opcional, mas recomendado)
-    int tamanho;
-} StrLista;
-
 
 /*-------------------------------------------- FUNÇÕES --------------------------------------------*/
 
@@ -84,5 +71,8 @@ StrFigura* removerFiguraLista(LISTA l, int id);
 /// @brief Esvazia a lista, removendo os nós (não desaloca as figuras em si, apenas os nós da lista)
 /// @param l Lista l
 void limparLista(LISTA l);
+
+/// @brief Destroi a lista e libera os nós da memória
+void destruirLista(LISTA l);
 
 #endif

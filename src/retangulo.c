@@ -1,5 +1,16 @@
 #include "retangulo.h"
 
+/// @brief Estrutura que guarda as informações do retângulo
+typedef struct {
+    int id;
+    double x; // Coordenada X da âncora (canto superior esquerdo)
+    double y; // Coordenada Y da âncora (canto superior esquerdo)
+    double w; // Largura (width) do retângulo
+    double h; // Altura (height) do retângulo
+    char* corb; // Cor da borda
+    char* corp; // Cor do preenchimento
+} StrRetangulo;
+
 RETANGULO cria_retangulo(int id, double x, double y, double w, double h, char* corb, char* corp) {
     StrRetangulo* r = (StrRetangulo*) malloc(sizeof(StrRetangulo));
     if (r == NULL) return NULL;

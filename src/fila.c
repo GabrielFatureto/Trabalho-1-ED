@@ -1,5 +1,19 @@
 #include "fila.h"
 
+/// @brief Nó interno da fila (exposto aqui caso precise de acesso direto, mas o ideal é uso opaco)
+typedef struct NoFila {
+    StrPonto ponto;
+    struct NoFila* prox;
+} NoFila;
+
+/// @brief Estrutura de controle da fila
+typedef struct {
+    NoFila* inicio;
+    NoFila* fim;
+    int tamanho;
+} StrFila;
+
+
 FILA cria_fila() {
     StrFila* f = (StrFila*) malloc(sizeof(StrFila));
     if (f != NULL) {
