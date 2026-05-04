@@ -60,6 +60,14 @@ char* getStringTexto(TEXTO t) {
     return ((StructTexto*)t)->txto;
 }
 
+void setXTexto(TEXTO t, double x) {
+    if (t != NULL) ((StructTexto*)t)->x = x;
+}
+
+void setYTexto(TEXTO t, double y) {
+    if (t != NULL) ((StructTexto*)t)->y = y;
+}
+
 void limparTexto(TEXTO t) {
     if (t != NULL) {
         StructTexto* st = (StructTexto*) t;

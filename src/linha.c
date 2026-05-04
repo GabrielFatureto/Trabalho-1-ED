@@ -17,7 +17,7 @@ LINHA cria_linha(int id, double x1, double y1, double x2, double y2, char* cor) 
     if (l == NULL) return NULL;
 
     l->id = id;
-    l->x1 = x1;
+    l->x1 = x1; 
     l->y1 = y1;
     l->x2 = x2;
     l->y2 = y2;
@@ -48,6 +48,22 @@ double getY2Linha(LINHA l) {
 
 char* getCorLinha(LINHA l) {
     return ((StructLinha*)l)->cor;
+}
+
+void setX1Linha(LINHA l, double x) {
+    if (l != NULL) ((StructLinha*)l)->x1 = x;
+}
+
+void setY1Linha(LINHA l, double y) {
+    if (l != NULL) ((StructLinha*)l)->y1 = y;
+}
+
+void setX2Linha(LINHA l, double x) {
+    if (l != NULL) ((StructLinha*)l)->x2 = x;
+}
+
+void setY2Linha(LINHA l, double y) {
+    if (l != NULL) ((StructLinha*)l)->y2 = y;
 }
 
 void limparLinha(LINHA l) {
