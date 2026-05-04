@@ -41,6 +41,17 @@ double getY2Linha(LINHA l);
 /** @brief Recupera a cor da linha. */
 char* getCorLinha(LINHA l);
 
+/** @brief Atualiza a coordenada X da primeira extremidade da linha. */
+void setX1Linha(LINHA l, double x);
+
+/** @brief Atualiza a coordenada Y da primeira extremidade da linha. */
+void setY1Linha(LINHA l, double y);
+
+/** @brief Atualiza a coordenada X da segunda extremidade da linha. */
+void setX2Linha(LINHA l, double x);
+
+/** @brief Atualiza a coordenada Y da segunda extremidade da linha. */
+void setY2Linha(LINHA l, double y);
 
 /**
  * @brief Libera toda a memória alocada para o elemento linha.

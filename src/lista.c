@@ -9,7 +9,7 @@ typedef struct NoLista {
 /// @brief Estrutura de controle da lista
 typedef struct {
     NoLista* inicio;
-    NoLista* fim; // Adicionado 'fim' para otimizar inserções no final (opcional, mas recomendado)
+    NoLista* fim; 
     int tamanho;
 } StrLista;
 
@@ -100,8 +100,7 @@ void limparLista(LISTA l) {
         while (aux != NULL) {
             NoLista* temp = aux;
             aux = aux->prox;
-            // ATENÇÃO: Libera apenas o nó da lista. A StrFigura e suas strings internas 
-            // devem ser desalocadas pelo sistema/gerenciador principal.
+            
             free(temp); 
         }
         free(l_int);
@@ -116,9 +115,9 @@ void destruirLista(LISTA l) {
     
     while (atual != NULL) {
         NoLista* proximo = atual->prox;
-        free(atual); // Libera o nó
+        free(atual); 
         atual = proximo;
     }
     
-    free(lista); // Libera a estrutura de controle da lista
+    free(lista); 
 }

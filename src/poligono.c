@@ -17,8 +17,8 @@ POLIGONO cria_poligono() {
     StrPoligono* p = (StrPoligono*) malloc(sizeof(StrPoligono));
     if (p == NULL) return NULL;
 
-    p->id = -1; // ID padrão até que seja alterado
-    p->coordenadas = cria_fila(); // Inicializa a fila de coordenadas
+    p->id = -1;
+    p->coordenadas = cria_fila();
 
     return (POLIGONO) p;
 }
@@ -58,7 +58,7 @@ int gerarLinhas(POLIGONO p, LISTA l, int id_inicio, double d, char* corb, char* 
     StrPoligono* poly = (StrPoligono*) p;
     int qtd = getTamanhoFila(poly->coordenadas);
     
-    // Um polígono válido necessita de pelo menos 3 vértices
+    
     if (qtd < 3) return id_inicio; 
 
     StrPonto pontos[qtd];
@@ -76,15 +76,24 @@ int gerarLinhas(POLIGONO p, LISTA l, int id_inicio, double d, char* corb, char* 
 
     for (int i = 0; i < qtd; i++) {
         StrPonto p1 = pontos[i];
-        StrPonto p2 = pontos[(i + 1) % qtd]; // O % fecha o polígono ligando o último ao primeiro vértice
+        StrPonto p2 = pontos[(i + 1) % qtd];
         
-        LINHA borda = cria_linha(id_inicio++, p1.x, p1.y, p2.x, p2.y, corb);
-        inserirLista(l, borda); // Insere na lista principal do sistema
+        int id_atual = id_inicio++;
+        LINHA borda = cria_linha(id_atual, p1.x, p1.y, p2.x, p2.y, corb);
+        
+        StrFigura* figBorda = (StrFigura*) malloc(sizeof(StrFigura));
+        figBorda->id = id_atual;
+        figBorda->tipo = 'l';
+        figBorda->forma = borda;
+        figBorda->corb = NULL; 
+        figBorda->corp = NULL;
+        
+        inserirLista(l, figBorda); 
     }
 
-    
+    // 2. GERANDO AS HACHURAS INTERNAS
     for (double y = ymin + (d / 2.0); y <= ymax; y += d) { 
-        double inter[qtd]; // Vetor para armazenar as intersecções no eixo X
+        double inter[qtd]; 
         int num_inter = 0;
 
         for (int i = 0; i < qtd; i++) {
@@ -112,13 +121,22 @@ int gerarLinhas(POLIGONO p, LISTA l, int id_inicio, double d, char* corb, char* 
 
         for (int i = 0; i < num_inter; i += 2) {
             if (i + 1 < num_inter) { 
-                LINHA hachura = cria_linha(id_inicio++, inter[i], y, inter[i+1], y, corp);
-                inserirLista(l, hachura);
+                int id_atual = id_inicio++;
+                LINHA hachura = cria_linha(id_atual, inter[i], y, inter[i+1], y, corp);
+                
+                StrFigura* figHachura = (StrFigura*) malloc(sizeof(StrFigura));
+                figHachura->id = id_atual;
+                figHachura->tipo = 'l';
+                figHachura->forma = hachura;
+                figHachura->corb = NULL;
+                figHachura->corp = NULL;
+
+                inserirLista(l, figHachura); 
             }
         }
     }
 
-    return id_inicio; // Retorna o ID para o sistema saber onde continuar
+    return id_inicio; 
 }
 
 

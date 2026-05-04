@@ -9,7 +9,7 @@ typedef struct texto {
     char corb[30];
     char corp[30];
     char ancora;
-    char* txto; // Alocado dinamicamente
+    char* txto;
 } StructTexto;
 
 TEXTO cria_texto(int id, double x, double y, char* corb, char* corp, char a, char* txto) {
@@ -23,7 +23,6 @@ TEXTO cria_texto(int id, double x, double y, char* corb, char* corp, char a, cha
     strcpy(t->corb, corb);
     strcpy(t->corp, corp);
 
-    // Aloca espaço exato para a string + caractere nulo
     t->txto = (char*) malloc((strlen(txto) + 1) * sizeof(char));
     if (t->txto != NULL) {
         strcpy(t->txto, txto);

@@ -48,7 +48,11 @@ char getAncoraTexto(TEXTO t);
 /** @brief Recupera a string com o conteúdo textual. */
 char* getStringTexto(TEXTO t);
 
+/** @brief Atualiza a coordenada X da âncora do texto. */
+void setXTexto(TEXTO t, double x);
 
+/** @brief Atualiza a coordenada Y da âncora do texto. */
+void setYTexto(TEXTO t, double y);
 
 /**
  * @brief Libera toda a memória alocada para o elemento de texto.

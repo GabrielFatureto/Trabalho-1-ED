@@ -46,7 +46,6 @@ void extraiNomeBase(char *nomeBase, char *arquivo) {
     strcpy(nomeBase, nome);
 }
 
-// Busca uma figura na lista pelo ID
 StrFigura* buscarFiguraPorId(LISTA lista, int id) {
     StrFigura* atual = getPrimeiroLista(lista);
     while (atual != NULL) {
@@ -56,7 +55,7 @@ StrFigura* buscarFiguraPorId(LISTA lista, int id) {
     return NULL;
 }
 
-// Verifica se uma figura está dentro da área de seleção (usado no sel, dels e mcs)
+
 bool estaDentro(StrFigura* f, double selX, double selY, double selW, double selH) {
     double x = 0, y = 0;
     if (f->tipo == 'c') { x = getXCirculo(f->forma); y = getYCirculo(f->forma); }
@@ -68,7 +67,6 @@ bool estaDentro(StrFigura* f, double selX, double selY, double selW, double selH
     return (x >= selX && x <= (selX + selW) && y >= selY && y <= (selY + selH));
 }
 
-// --- PARSER DO ARQUIVO .GEO ---
 void processarGeo(FILE *fGeo, LISTA listaGeometria) {
     char linha[512]; 
     while (fgets(linha, sizeof(linha), fGeo) != NULL) {
@@ -76,31 +74,38 @@ void processarGeo(FILE *fGeo, LISTA listaGeometria) {
         if (sscanf(linha, "%s", comando) <= 0) continue;
 
         if (strcmp(comando, "c") == 0) {
-            int id; double x, y, r; char corb[30], corp[30];
+            int id; double x, y, r; 
+            char corb[30] = "", corp[30] = "";
             sscanf(linha, "%*s %d %lf %lf %lf %s %s", &id, &x, &y, &r, corb, corp);
             CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
             StrFigura* f = (StrFigura*) malloc(sizeof(StrFigura));
             f->id = id; f->tipo = 'c'; f->forma = c;
             f->corb = clonar_string(corb); f->corp = clonar_string(corp);
             inserirLista(listaGeometria, f);
+            
         } else if (strcmp(comando, "r") == 0) {
-            int id; double x, y, w, h; char corb[30], corp[30];
+            int id; double x, y, w, h; 
+            char corb[30] = "", corp[30] = "";
             sscanf(linha, "%*s %d %lf %lf %lf %lf %s %s", &id, &x, &y, &w, &h, corb, corp);
             RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
             StrFigura* f = (StrFigura*) malloc(sizeof(StrFigura));
             f->id = id; f->tipo = 'r'; f->forma = r;
             f->corb = clonar_string(corb); f->corp = clonar_string(corp);
             inserirLista(listaGeometria, f);
+            
         } else if (strcmp(comando, "l") == 0) {
-            int id; double x1, y1, x2, y2; char cor[30];
+            int id; double x1, y1, x2, y2; 
+            char cor[30] = "";
             sscanf(linha, "%*s %d %lf %lf %lf %lf %s", &id, &x1, &y1, &x2, &y2, cor);
             LINHA l = cria_linha(id, x1, y1, x2, y2, cor);
             StrFigura* f = (StrFigura*) malloc(sizeof(StrFigura));
             f->id = id; f->tipo = 'l'; f->forma = l;
             f->corb = clonar_string(cor); f->corp = NULL;
             inserirLista(listaGeometria, f);
+            
         } else if (strcmp(comando, "t") == 0) {
-            int id; double x, y; char corb[30], corp[30], a; char txto[256];
+            int id; double x, y; char a; 
+            char corb[30] = "", corp[30] = "", txto[256] = "";
             sscanf(linha, "%*s %d %lf %lf %s %s %c %[^\n]", &id, &x, &y, corb, corp, &a, txto);
             TEXTO t = cria_texto(id, x, y, corb, corp, a, txto);
             StrFigura* f = (StrFigura*) malloc(sizeof(StrFigura));
@@ -111,7 +116,7 @@ void processarGeo(FILE *fGeo, LISTA listaGeometria) {
     }
 }
 
-// --- PARSER DO ARQUIVO .QRY ---
+
 void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBaseGeo, char* nomeBaseQry) {
     char linha[256];
     char nomeSvgQry[256];
@@ -125,7 +130,6 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
         char comando[10];
         if (sscanf(linha, "%s", comando) <= 0) continue;
 
-        // Comandos de Seleção e Modificação
         if (strcmp(comando, "sel") == 0) {
             sscanf(linha, "%*s %lf %lf %lf %lf", &selX, &selY, &selW, &selH);
         } 
@@ -137,7 +141,6 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
                     
                     removerFiguraLista(listaGeometria, fig->id); 
                     
-                    // 2. Libera a memória para não haver vazamento!
                     if (fig->corb) free(fig->corb);
                     if (fig->corp) free(fig->corp);
                     if (fig->forma) {
@@ -145,15 +148,15 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
                         else if (fig->tipo == 'r') { limparRetangulo(fig->forma); }
                         else if (fig->tipo == 't') { limparTexto(fig->forma); }
                         else if (fig->tipo == 'l') { limparLinha(fig->forma); }
-                        // adicione o limparPoligono aqui se necessário
                     }
-                    free(fig); // Libera o "container" StrFigura
+                    free(fig); 
                 }
-                fig = proximo; // Continua a varredura com o próximo item que salvamos
+                fig = proximo; 
             }
         } 
         else if (strcmp(comando, "mcs") == 0) {
-            double nx, ny; char cb[30], cp[30];
+            double nx, ny; 
+            char cb[30] = "", cp[30] = ""; // <-- Inicializadas vazias!
             if (sscanf(linha, "%*s %lf %lf %s %s", &nx, &ny, cb, cp) == 4) {
                 StrFigura* fig = getPrimeiroLista(listaGeometria);
                 while (fig != NULL) {
@@ -177,21 +180,61 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
                 }
             }
         }
-        // Comandos de Polígono
         else if (strcmp(comando, "inp") == 0) {
-            int id; double x, y;
-            sscanf(linha, "%*s %d %lf %lf", &id, &x, &y);
-            StrFigura* fig = buscarFiguraPorId(listaGeometria, id);
-            if (fig == NULL) {
-                POLIGONO p = cria_poligono();
-                setIdPoligono(p, id);
-                fig = (StrFigura*) malloc(sizeof(StrFigura));
-                fig->id = id; fig->tipo = 'p'; fig->forma = p;
-                fig->corb = NULL; fig->corp = NULL;
-                inserirLista(listaGeometria, fig);
-            }
-            inserirCoordenadaPoligono(fig->forma, x, y);
+            int id_pol, id_fig;
+            
 
+            sscanf(linha, "%*s %d %d", &id_pol, &id_fig);
+            
+
+            StrFigura* figBase = buscarFiguraPorId(listaGeometria, id_fig);
+            
+            if (figBase != NULL) {
+                double ancoraX = 0, ancoraY = 0;
+                
+                if (figBase->tipo == 'c') { 
+                    ancoraX = getXCirculo(figBase->forma); 
+                    ancoraY = getYCirculo(figBase->forma); 
+                } 
+                else if (figBase->tipo == 'r') { 
+                    ancoraX = getXRetangulo(figBase->forma); 
+                    ancoraY = getYRetangulo(figBase->forma); 
+                } 
+                else if (figBase->tipo == 't') { 
+                    ancoraX = getXTexto(figBase->forma); 
+                    ancoraY = getYTexto(figBase->forma); 
+                } 
+                else if (figBase->tipo == 'l') { 
+                    double x1 = getX1Linha(figBase->forma);
+                    double y1 = getY1Linha(figBase->forma);
+                    double x2 = getX2Linha(figBase->forma);
+                    double y2 = getY2Linha(figBase->forma);
+                    
+                    if (x1 < x2) {
+                        ancoraX = x1; ancoraY = y1;
+                    } else if (x2 < x1) {
+                        ancoraX = x2; ancoraY = y2;
+                    } else { // x1 == x2
+                        ancoraX = x1;
+                        ancoraY = (y1 < y2) ? y1 : y2;
+                    }
+                }
+
+                StrFigura* figPol = buscarFiguraPorId(listaGeometria, id_pol);
+                if (figPol == NULL) {
+                    POLIGONO p = cria_poligono();
+                    setIdPoligono(p, id_pol);
+                    figPol = (StrFigura*) malloc(sizeof(StrFigura));
+                    figPol->id = id_pol; 
+                    figPol->tipo = 'p'; 
+                    figPol->forma = p;
+                    figPol->corb = NULL; 
+                    figPol->corp = NULL;
+                    inserirLista(listaGeometria, figPol);
+                }
+
+                inserirCoordenadaPoligono(figPol->forma, ancoraX, ancoraY);
+            }
         } else if (strcmp(comando, "rmp") == 0) {
             int id;
             sscanf(linha, "%*s %d", &id);
@@ -201,19 +244,22 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
             }
 
         } else if (strcmp(comando, "pol") == 0) {
-            int id; double d; char corb[30], corp[30];
-            sscanf(linha, "%*s %d %lf %s %s", &id, &d, corb, corp);
+            int id; double d, espessura;
+            char corb[30] = "", corp[30] = "";
+
+            sscanf(linha, "%*s %d %lf %lf %s %s", &id, &d, &espessura, corb, corp);
+
             StrFigura* fig = buscarFiguraPorId(listaGeometria, id);
             if (fig != NULL && fig->tipo == 'p') {
                 if (fig->corb) free(fig->corb);
                 if (fig->corp) free(fig->corp);
                 fig->corb = clonar_string(corb);
                 fig->corp = clonar_string(corp);
+
                 gerarLinhas(fig->forma, listaGeometria, 0, d, corb, corp);
             }
         }
     }
-    // Exporta o SVG contendo as modificações do .qry
     exportarSVG(listaGeometria, pathSvgQry);
 }
 
@@ -238,13 +284,11 @@ int main(int argc, char *argv[]) {
 
     LISTA listaGeometria = cria_lista();
     
-    // Lê o GEO
     FILE *fGeo = fopen(pathGeo, "r");
     if (fGeo != NULL) {
         processarGeo(fGeo, listaGeometria);
         fclose(fGeo);
         
-        // Exporta o SVG original da Base
         char pathSvgGeo[512];
         sprintf(pathSvgGeo, "%s/%s.svg", dirSaida, nomeBaseGeo);
         exportarSVG(listaGeometria, pathSvgGeo);
@@ -253,7 +297,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Lê e processa o QRY
     if (arqQry != NULL) {
         char pathQry[256], nomeBaseQry[100];
         juntaCaminho(pathQry, dirEntrada, arqQry);
@@ -267,7 +310,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // Limpeza da Memória Segura (Lixeiro)
     StrFigura* atual = getPrimeiroLista(listaGeometria);
     while (atual != NULL) {
         StrFigura* proximo = getProximoLista(listaGeometria, atual);
