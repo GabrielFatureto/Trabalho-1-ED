@@ -4,11 +4,11 @@
 #include <stdio.h>
 
 void setUp(void) {
-    // Pode deixar vazio se não precisar inicializar nada globalmente antes de cada teste
+    
 }
 
 void tearDown(void) {
-    // Pode deixar vazio se não precisar limpar nada globalmente após cada teste
+    
 }
 
 void test_cria_poligono(void) {
@@ -47,26 +47,25 @@ void test_inserir_remover_coordenada(void) {
 /// @brief Testa o algoritmo Scanline de geração de bordas e hachuras
 void test_gerar_linhas(void) {
     POLIGONO p = cria_poligono();
-    LISTA l = cria_lista(); // Lista falsa para receber as linhas geradas
+    LISTA l = cria_lista();
 
-    // Vamos criar um polígono simples (um quadrado de 10x10)
+    
     inserirCoordenadaPoligono(p, 0.0, 0.0);
     inserirCoordenadaPoligono(p, 10.0, 0.0);
     inserirCoordenadaPoligono(p, 10.0, 10.0);
     inserirCoordenadaPoligono(p, 0.0, 10.0);
 
-    // Manda gerar as linhas começando com ID 1, distância de hachura = 2.0
+    
     int prox_id = gerarLinhas(p, l, 1, 2.0, "preto", "vermelho");
 
-    // O quadrado tem 4 bordas. Então deve ter gerado 4 linhas de borda.
-    // Mais as linhas de hachura no meio. O ID retornado com certeza será maior que 1.
+    
     TEST_ASSERT_TRUE(prox_id > 1);
 
-    // A lista principal não pode estar vazia (tem que ter as linhas dentro dela)
+    
     TEST_ASSERT_TRUE(getTamanhoLista(l) > 0);
 
     limparPoligono(p);
-    limparLista(l); // Não esqueça de limpar a lista falsa
+    limparLista(l);
 }
 
 int main(void) {
@@ -75,7 +74,7 @@ int main(void) {
     RUN_TEST(test_cria_poligono);
     RUN_TEST(test_get_set_id);
     RUN_TEST(test_inserir_remover_coordenada);
-    RUN_TEST(test_gerar_linhas); // ADICIONADO: Executa o novo teste
-        
+    RUN_TEST(test_gerar_linhas); 
+    
     return UNITY_END();
 }

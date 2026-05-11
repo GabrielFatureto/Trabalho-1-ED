@@ -11,15 +11,12 @@ void test_cria_linha_e_gets(void) {
     TEST_ASSERT_NOT_NULL(l);
     TEST_ASSERT_EQUAL_INT(15, getIdLinha(l));
     
-    // Verificando as coordenadas do ponto 1
     TEST_ASSERT_FLOAT_WITHIN(0.001, 10.5, getX1Linha(l));
     TEST_ASSERT_FLOAT_WITHIN(0.001, 20.0, getY1Linha(l));
     
-    // Verificando as coordenadas do ponto 2
     TEST_ASSERT_FLOAT_WITHIN(0.001, 50.5, getX2Linha(l));
     TEST_ASSERT_FLOAT_WITHIN(0.001, 80.0, getY2Linha(l));
     
-    // Verificando a cor
     TEST_ASSERT_EQUAL_STRING("vermelho", getCorLinha(l));
     
     limparLinha(l);

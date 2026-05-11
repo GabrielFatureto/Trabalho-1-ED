@@ -156,7 +156,7 @@ void processarQry(FILE *fQry, LISTA listaGeometria, char* dirSaida, char* nomeBa
         } 
         else if (strcmp(comando, "mcs") == 0) {
             double nx, ny; 
-            char cb[30] = "", cp[30] = ""; // <-- Inicializadas vazias!
+            char cb[30] = "", cp[30] = "";
             if (sscanf(linha, "%*s %lf %lf %s %s", &nx, &ny, cb, cp) == 4) {
                 StrFigura* fig = getPrimeiroLista(listaGeometria);
                 while (fig != NULL) {

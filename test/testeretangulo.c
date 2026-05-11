@@ -3,11 +3,11 @@
 #include <string.h>
 
 void setUp(void) {
-    // Inicializações globais para os testes de retângulo, se necessário
+    
 }
 
 void tearDown(void) {
-    // Limpeza global pós-testes, se necessário
+    
 }
 
 /// @brief Testa a criação do retângulo e as funções de Get

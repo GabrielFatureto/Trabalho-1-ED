@@ -15,7 +15,7 @@ void test_cria_texto_e_gets(void) {
     TEST_ASSERT_EQUAL_STRING("preto", getCorbTexto(t));
     TEST_ASSERT_EQUAL_INT('m', getAncoraTexto(t));
     
-    // Verifica se a string foi copiada corretamente
+    
     TEST_ASSERT_EQUAL_STRING(conteudo, getStringTexto(t));
     
     limparTexto(t);

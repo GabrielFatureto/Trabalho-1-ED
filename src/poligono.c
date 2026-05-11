@@ -91,7 +91,6 @@ int gerarLinhas(POLIGONO p, LISTA l, int id_inicio, double d, char* corb, char* 
         inserirLista(l, figBorda); 
     }
 
-    // 2. GERANDO AS HACHURAS INTERNAS
     for (double y = ymin + (d / 2.0); y <= ymax; y += d) { 
         double inter[qtd]; 
         int num_inter = 0;

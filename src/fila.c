@@ -1,6 +1,6 @@
 #include "fila.h"
 
-/// @brief Nó interno da fila (exposto aqui caso precise de acesso direto, mas o ideal é uso opaco)
+/// @brief Nó interno da fila
 typedef struct NoFila {
     StrPonto ponto;
     struct NoFila* prox;

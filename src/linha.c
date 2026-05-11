@@ -2,7 +2,6 @@
 #include <string.h>
 #include "linha.h"
 
-// A struct escondida
 typedef struct linha {
     int id;
     double x1;
